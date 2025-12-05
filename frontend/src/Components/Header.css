@@ -1,0 +1,28 @@
+nav{
+    background: #F7F2E9;
+    padding: 14px 0;
+}
+.NavContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.NavContainer ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    column-gap: 1.5em;
+}
+.NavContainer .navbar-brand img {
+    max-width: 220px;
+}
+.NavContainer li a {
+    text-decoration: none;
+    color: #2F4858;
+    font-size: 18px;
+    font-weight: 500;
+}
+.NavContainer li a:hover, .NavContainer li a.active{
+    color: #d57e00;
+}

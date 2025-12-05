@@ -50,8 +50,9 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    ),
+    )
 }
+
 # CORS settings (React frontend ke liye)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React dev server

@@ -1,15 +1,20 @@
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework import generics, permissions
-from student.models import Student
-from student.serializers import StudentSerializer
+from rest_framework import generics, status
+from rest_framework.response import Response
+from .serializers import RegisterSerializer
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 
-# Student Profile API
+
+class RegisterView(generics.CreateAPIView):
+    serializer_class = RegisterSerializer
 
 
-class StudentProfileView(generics.RetrieveUpdateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    serializer_class = StudentSerializer
-
-    def get_object(self):
-        # Logged-in user ka student profile return kare
-        return self.request.user.student_profile
+class LogoutView(APIView):
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({"detail": "Logged out successfully"})
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

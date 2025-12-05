@@ -20,5 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('university.urls')),
+    path('api/auth/', include('authentication.urls')),  # JWT login
+    path('api/student/', include('student.urls')),       # Student profile
 
 ]

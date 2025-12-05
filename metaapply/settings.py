@@ -39,8 +39,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'university',
+    'rest_framework_simplejwt',
+    'student',
+    'authentication',
+    'corsheaders',  # agar React frontend se call karna hai
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 
+# CORS settings (React frontend ke liye)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React dev server
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -22,5 +22,7 @@ urlpatterns = [
     path('api/', include('university.urls')),
     path('api/auth/', include('authentication.urls')),  # JWT login
     path('api/student/', include('student.urls')),       # Student profile
+    path('api/university/', include('university.urls')),
+    path('api/university/', include('university.urls')),
 
 ]

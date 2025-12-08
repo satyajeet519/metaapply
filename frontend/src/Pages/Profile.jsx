@@ -1,16 +1,38 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
     const [error, setError] = useState("");
-    useEffect(()=>{
+    const nav = useNavigate();
 
+    const handleLogout = async()=>{
+            const refresh = localStorage.getItem("refresh");
+
+            try {
+                await fetch('http://127.0.0.1:8000/api/auth/logout/',{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ refresh }),
+                });
+            } catch (err) {
+                setError('Something went wrong!')
+            }
+
+            localStorage.removeItem("access");
+            localStorage.removeItem("refresh");
+            nav('/login');
+        }
+
+    useEffect(()=>{
         const refreshAccessToken = async()=>{
             try {
                 const refresh = localStorage.getItem("refresh");
                 if(!refresh) return null;
 
-                const resp = await fetch("http://127.0.0.1:8000/api/auth/refresh/",{
+                let resp = await fetch("http://127.0.0.1:8000/api/auth/refresh/",{
                     method: "POST",
                     headers: {
                         "Content-Type" : "application/json"
@@ -43,7 +65,7 @@ const Profile = () => {
              }
 
              try {
-                const resp = await fetch("http://127.0.0.1:8000/api/student/profile/", {
+                let resp = await fetch("http://127.0.0.1:8000/api/student/profile/", {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${token}`,
@@ -96,6 +118,7 @@ const Profile = () => {
                     </div>
                 )
             }
+            <button onClick={handleLogout}>Logout</button>
         </>
     )
 }

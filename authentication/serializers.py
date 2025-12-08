@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from student.models import Student   # import your Student model
+from student.models import Student
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -15,9 +15,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password', 'phone', 'city')
 
     def create(self, validated_data):
-        # remove phone from validated_data
         phone = validated_data.pop('phone', "")
-        # remove city from validated_data
         city = validated_data.pop('city', "")
 
         user = User.objects.create_user(

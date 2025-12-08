@@ -1,4 +1,4 @@
-import { NavLink, Route, Router } from "react-router";
+import { NavLink } from "react-router";
 import './Header.css'
 import Container from '@mui/material/Container'
 import Logo from '../Assets/website-logo.png'
@@ -15,7 +15,10 @@ const Header = () => {
                         <ul>
                             <li><NavLink to="/">Home</NavLink></li>
                             <li><NavLink to="/about">About</NavLink></li>
+                            {/* <li><NavLink to="/profile">Profile</NavLink></li> */}
                             <li><NavLink to="/university">University</NavLink></li>
+                            <li><NavLink to="/login">Login</NavLink></li>
+                            <li><NavLink to="/register">Register</NavLink></li>
                         </ul>
                     </div>
                 </Container>

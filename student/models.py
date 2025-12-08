@@ -10,6 +10,8 @@ class Student(models.Model):
     )
     phone = models.CharField(max_length=20, blank=True)
     city = models.CharField(max_length=100, blank=True)
+    email = models.CharField(max_length=100, blank=True)
+    username = models.CharField(max_length=100, blank=True)
     # Add more fields if needed
     created_at = models.DateTimeField(auto_now_add=True)
 

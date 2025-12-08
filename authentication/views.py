@@ -11,10 +11,17 @@ class RegisterView(generics.CreateAPIView):
 
 class LogoutView(APIView):
     def post(self, request):
+        refresh_token = request.data.get("refresh")
+
+        if not refresh_token:
+            return Response({"error": "Refresh token missing"}, status=400)
+
         try:
-            refresh_token = request.data["refresh"]
             token = RefreshToken(refresh_token)
             token.blacklist()
-            return Response({"detail": "Logged out successfully"})
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception:
+            # Even if token is invalid or already blacklisted, logout should still succeed
+            pass
+
+        return Response({"detail": "Logged out successfully"}, status=200)

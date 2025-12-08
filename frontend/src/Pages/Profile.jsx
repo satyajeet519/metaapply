@@ -8,18 +8,20 @@ const Profile = () => {
 
     const handleLogout = async()=>{
             const refresh = localStorage.getItem("refresh");
-
-            try {
-                await fetch('http://127.0.0.1:8000/api/auth/logout/',{
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ refresh }),
-                });
-            } catch (err) {
-                setError('Something went wrong!')
+            if(refresh){
+                try {
+                    await fetch('http://127.0.0.1:8000/api/auth/logout/',{
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ refresh }),
+                    });
+                } catch (err) {
+                    setError('Something went wrong!')
+                }
             }
+            
 
             localStorage.removeItem("access");
             localStorage.removeItem("refresh");
@@ -111,8 +113,8 @@ const Profile = () => {
             {
                 profile && (
                     <div>
-                         <p><strong>Username:</strong> {profile.username}</p>
-                         <p><strong>Email:</strong> {profile.email}</p>
+                         <p><strong>Username:</strong> {profile.user.username}</p>
+                         <p><strong>Email:</strong> {profile.user.email}</p>
                          <p><strong>Phone:</strong> {profile.phone}</p>
                          <p><strong>City:</strong> {profile.city}</p>
                     </div>
